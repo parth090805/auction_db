@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{{ title or "Query Results" }}</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+</head>
+<body class="bg-gradient-to-br from-slate-100 to-white dark:from-gray-900 dark:to-black min-h-screen text-gray-800 dark:text-gray-100 transition">
+  <div class="max-w-6xl mx-auto px-4 py-10">
+    <h1 class="text-3xl font-bold text-center text-blue-700 dark:text-blue-400 mb-8">{{ title or "Query Results" }}</h1>
+
+    {% if rows and rows|length > 0 %}
+      <div class="overflow-x-auto">
+        <table class="min-w-full bg-white dark:bg-gray-800 shadow-xl rounded-lg overflow-hidden">
+          <thead class="bg-blue-600 text-white">
+            <tr>
+              {% for col in rows[0].keys() %}
+                <th class="text-left px-6 py-3 text-sm uppercase tracking-wider">{{ col.replace('_', ' ').title() }}</th>
+              {% endfor %}
+            </tr>
+          </thead>
+          <tbody>
+            {% for row in rows %}
+              <tr class="border-b hover:bg-blue-50 dark:hover:bg-gray-700 transition-all">
+                {% for key, value in row.items() %}
+                  <td class="px-6 py-4 text-sm">
+                    {% if key == 'seller_name' %}
+                      👤 {{ value }}
+                    {% else %}
+                      {{ value }}
+                    {% endif %}
+                  </td>
+                {% endfor %}
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+
+      <div class="flex justify-between items-center mt-8">
+        <a href="/" class="inline-block bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg transition">⬅ Back to Dashboard</a>
+        <button onclick="window.print()" class="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-lg transition">🖨 Print Results</button>
+      </div>
+    {% else %}
+      <div class="text-center mt-20">
+        <p class="text-lg text-gray-500 dark:text-gray-300">No results found for this query.</p>
+        <a href="/" class="mt-6 inline-block bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg transition">⬅ Back to Dashboard</a>
+      </div>
+    {% endif %}
+  </div>
+</body>
+</html>
