@@ -102,7 +102,7 @@ export default function BuyerDashboard() {
               className={`px-4 py-2 rounded-lg font-medium border-2 ${
                 activeTab === tab
                   ? 'bg-orange-500 text-white border-orange-600'
-                  : 'bg-white text-black border-gray-300 hover:bg-orange-100'
+                  : 'bg-white text-gray-400 border-gray-300 hover:bg-orange-100'
               }`}
             >
               {tab === 'auctions' ? 'Live Auctions' : tab === 'bids' ? 'My Bids' : 'Order History'}
